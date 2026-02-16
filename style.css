@@ -2,6 +2,10 @@
     margin: 0;
     font-family: "Inter", sans-serif;
 }
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+}
 .navbar {
     background-color: black;
     display: flex;
@@ -9,6 +13,7 @@
     position: fixed;
     width: 100%;
     z-index: 10;
+    top: 0;
 }
 .navbar-container {
     display: flex;
@@ -53,8 +58,9 @@
 .video-container {
     position: relative;
     width: 100%;
-    height: 100vh; /* full viewport height */
+    height: 100dvh; /* full viewport height */
     overflow: hidden;
+    margin-top: 0;
 }
 
 .background-video {
@@ -138,7 +144,7 @@
         display: none;
     }
     .menu {
-        height: 100vh;
+        height: 100dvh;
         width: 70%;
         background-color: white;
         display: none;
@@ -190,7 +196,7 @@
         display: none;
     }
     .menu {
-        height: 100vh;
+        height: 100dvh;
         width: 70%;
         background-color: white;
         display: none;
