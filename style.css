@@ -1,0 +1,210 @@
+* {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+}
+.navbar {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+    z-index: 10;
+}
+.navbar-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 960px;
+}
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#logo {
+    height: 63px;
+    width: 63px;
+}
+#github {
+    height: 25px;
+    width: 25px;
+}
+.navlinks-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 0px;
+}
+.navlinks-container li a:hover {
+    opacity: 0.6;
+}
+.navlinks-container li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+
+}
+.hamburger-menu-container {
+    display: none;
+}
+.menu {
+    display: none;
+}
+.backdrop {
+    display: none;
+}
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* full viewport height */
+    overflow: hidden;
+}
+
+.background-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* covers the container */
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6); /* black with 0.6 opacity */
+    pointer-events: none; /* allows clicks to pass through */
+}
+.content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    z-index: 2;
+}
+.content h1 {
+    font-size: 48px;
+    padding-bottom: 10px;
+}
+.content p {
+    font-size: 20px;
+    padding-bottom: 10px;
+}
+.btn {
+    display: inline-block;
+    padding: 0.85rem 2.5rem;
+    font-size: 1rem;
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50px;
+    background: transparent;
+    backdrop-filter: blur(2px);
+    transition: all 0.3s ease;
+}
+.btn:hover {
+    background: #fff;
+    color: #000;
+    transform: scale(1.1);
+}
+@media (max-width: 1024px) {
+    .navbar-container {
+        width: 100%;
+        margin: 0px 20px;
+    }
+    .navlinks-container {
+        display: none;
+    }
+    .hamburger-menu-container {
+        display: flex;
+    }
+    .hamburger-menu-container:hover {
+        cursor: pointer;
+        opacity: 0.6;
+    }
+    #hamburger-menu {
+        height: 63px;
+        width: 63px;
+    }
+    #close {
+        height: 63px;
+        width: 63px;
+        display: none;
+    }
+    .menu {
+        height: 100vh;
+        width: 70%;
+        background-color: white;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        position: fixed;
+        z-index: 3;
+        right: 0px;
+        top: 0px;
+    }
+    .menu-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        list-style: none;
+    }
+    .menu-container li a {
+        color: black;
+        font-size: 48px;
+        text-decoration: none;
+    }
+}
+@media (max-width: 767px) {
+    .navbar-container {
+        width: 100%;
+        margin: 0px 20px;
+    }
+    .navlinks-container {
+        display: none;
+    }
+    .hamburger-menu-container {
+        display: flex;
+    }
+    .hamburger-menu-container:hover {
+        cursor: pointer;
+        opacity: 0.6;
+    }
+    #hamburger-menu {
+        height: 63px;
+        width: 63px;
+    }
+    #close {
+        height: 63px;
+        width: 63px;
+        display: none;
+    }
+    .menu {
+        height: 100vh;
+        width: 70%;
+        background-color: white;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        position: fixed;
+        z-index: 3;
+        right: 0px;
+        top: 0px;
+    }
+    .menu-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        list-style: none;
+    }
+    .menu-container li a {
+        color: black;
+        font-size: 48px;
+        text-decoration: none;
+    }
+}
