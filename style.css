@@ -1,222 +1,226 @@
 * {
     margin: 0;
+    box-sizing: border-box;
     font-family: "Inter", sans-serif;
 }
+
 html, body {
     height: 100%;
     overflow-x: hidden;
 }
+
+/* ======================
+   NAVBAR (MOBILE FIRST)
+====================== */
+
 .navbar {
-    background-color: black;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 63px;
+    background: black;
     display: flex;
     justify-content: center;
-    position: fixed;
-    width: 100%;
-    z-index: 10;
-    top: 0;
+    z-index: 100;
 }
+
 .navbar-container {
+    width: 100%;
+    padding: 0 20px;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 960px;
 }
-.logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 #logo {
     height: 63px;
     width: 63px;
 }
-.navlinks-container {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    padding: 0px;
-}
-.navlinks-container li a:hover {
-    opacity: 0.6;
-}
-.navlinks-container li a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
 
+.navlinks-container {
+    display: none;
 }
+
 .hamburger-menu-container {
+    display: flex;
+    cursor: pointer;
+}
+
+#hamburger-menu,
+#close {
+    height: 63px;
+    width: 63px;
+}
+
+#close {
     display: none;
 }
+
+/* ======================
+   MOBILE MENU
+====================== */
+
 .menu {
-    display: none;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 70%;
+    height: 100dvh;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: right 0.3s ease;
+    z-index: 90;
 }
-.backdrop {
-    display: none;
+
+.menu.active {
+    right: 0;
 }
+
+.menu-container {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.menu-container a {
+    text-decoration: none;
+    font-size: 32px;
+    color: black;
+}
+
+/* ======================
+   VIDEO SECTION
+====================== */
+
 .video-container {
     position: relative;
     width: 100%;
-    height: 100dvh; /* full viewport height */
+    height: 100dvh;
     overflow: hidden;
-    margin-top: 0;
 }
 
-.background-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* covers the container */
-}
-
-.video-overlay {
+/* IMPORTANT FIX */
+.video-container::before {
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.6); /* black with 0.6 opacity */
-    pointer-events: none; /* allows clicks to pass through */
+    background: rgba(0,0,0,0.6);
+    z-index: 1;
 }
+
+.background-video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .content {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: white;
     text-align: center;
+    color: white;
     z-index: 2;
+    padding: 0 20px;
 }
+
 .content h1 {
-    font-size: 48px;
-    padding-bottom: 10px;
+    font-size: 32px;
+    margin-bottom: 10px;
 }
+
 .content p {
-    font-size: 20px;
-    padding-bottom: 10px;
+    font-size: 16px;
+    margin-bottom: 15px;
 }
+
 .btn {
     display: inline-block;
-    padding: 0.85rem 2.5rem;
-    font-size: 1rem;
-    color: #fff;
-    text-decoration: none;
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    padding: 0.8rem 2rem;
+    border: 1px solid rgba(255,255,255,0.8);
     border-radius: 50px;
-    background: transparent;
-    backdrop-filter: blur(2px);
-    transition: all 0.3s ease;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s ease;
 }
+
 .btn:hover {
-    background: #fff;
-    color: #000;
-    transform: scale(1.1);
+    background: white;
+    color: black;
 }
-@media (max-width: 1024px) {
+
+/* ======================
+   TABLET (768px+)
+====================== */
+
+@media (min-width: 768px) {
+
     .navbar {
-        height: 150px;
+        height: 100px;
     }
-    .navbar-container {
-        width: 100%;
-        margin: 0px 20px;
-    }
+
     #logo {
-        height: 150px;
-        width: 150px;
+        height: 100px;
+        width: 100px;
     }
-    .navlinks-container {
-        display: none;
-    }
-    .hamburger-menu-container {
-        display: flex;
-    }
-    .hamburger-menu-container:hover {
-        cursor: pointer;
-        opacity: 0.6;
-    }
-    #hamburger-menu {
-        height: 150px;
-        width: 150px;
-    }
+
+    #hamburger-menu,
     #close {
-        height: 150px;
-        width: 150px;
-        display: none;
+        height: 100px;
+        width: 100px;
     }
-    .menu {
-        height: 100dvh;
-        width: 70%;
-        background-color: white;
-        display: none;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        position: fixed;
-        z-index: 3;
-        right: 0px;
-        top: 0px;
+
+    .menu-container a {
+        font-size: 42px;
     }
-    .menu-container {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        list-style: none;
-    }
-    .menu-container li a {
-        color: black;
+
+    .content h1 {
         font-size: 48px;
-        text-decoration: none;
+    }
+
+    .content p {
+        font-size: 20px;
     }
 }
-@media (max-width: 767px) {
-    .navbar {
-        height: 63px;
-    }
-    .navbar-container {
-        width: 100%;
-        margin: 0px 20px;
-    }
+
+/* ======================
+   DESKTOP (1025px+)
+====================== */
+
+@media (min-width: 1025px) {
+
     .navlinks-container {
-        display: none;
-    }
-    .hamburger-menu-container {
         display: flex;
-    }
-    .hamburger-menu-container:hover {
-        cursor: pointer;
-        opacity: 0.6;
-    }
-    #hamburger-menu {
-        height: 150px;
-        width: 150px;
-    }
-    #close {
-        height: 150px;
-        width: 150px;
-        display: none;
-    }
-    .menu {
-        height: 100dvh;
-        width: 70%;
-        background-color: white;
-        display: none;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        position: fixed;
-        z-index: 3;
-        right: 0px;
-        top: 0px;
-    }
-    .menu-container {
-        display: flex;
-        flex-direction: column;
         gap: 20px;
-        list-style: none;
     }
-    .menu-container li a {
-        color: black;
-        font-size: 48px;
+
+    .navlinks-container a {
         text-decoration: none;
+        color: white;
+        font-weight: bold;
+    }
+
+    .hamburger-menu-container {
+        display: none;
+    }
+
+    .menu {
+        display: none;
+    }
+
+    .content h1 {
+        font-size: 56px;
+    }
+
+    .content p {
+        font-size: 22px;
     }
 }
