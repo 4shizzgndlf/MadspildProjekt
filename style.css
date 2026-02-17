@@ -101,7 +101,7 @@ html, body {
 .video-container {
     position: relative;
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     overflow: hidden;
 }
 
@@ -112,7 +112,7 @@ html, body {
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     background: rgba(0,0,0,0.6);
     z-index: 1;
 }
@@ -190,7 +190,7 @@ html, body {
     }
 
     .video-container {
-        height: 100vh; /* Ensure full height */
+        height: 100dvh; /* Ensure full height */
         width: 100vw; /* Ensure full width */
     }
 
@@ -244,7 +244,7 @@ html, body {
     }
 
     .video-container {
-        height: 100vh; /* Ensure full height */
+        height: 100dvh; /* Ensure full height */
         width: 100vw; /* Ensure full width */
     }
 
@@ -268,7 +268,7 @@ html, body {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        height: 100dvh;
         width: 100vw;
     }
     .støt-nu-container {
