@@ -97,11 +97,14 @@ html, body {
    VIDEO SECTION
 ====================== */
 
+.video {
+    width: 100%;
+}
+
 .video-container {
     position: relative;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
-    overflow: hidden;
 }
 
 /* IMPORTANT FIX */
@@ -110,7 +113,7 @@ html, body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     background: rgba(0,0,0,0.6);
     z-index: 1;
@@ -121,7 +124,7 @@ html, body {
     top: 50%;
     left: 50%;
     width: 100%;
-    height: auto; /* Maintain aspect ratio */
+    height: 100vh; /* Maintain aspect ratio */
     min-height: 100%; /* Ensure it covers the container */
     min-width: 100%; /* Ensure it covers the container */
     transform: translate(-50%, -50%); /* Center the video */
@@ -162,6 +165,78 @@ html, body {
 .btn:hover {
     background: white;
     color: black;
+}
+.støt-nu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+.støt-nu-container {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    gap: 20px;
+}
+.støt-nu-titles {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border-bottom: 2px solid black;
+}
+
+.støt-nu-titles h1 {
+    font-size: 28px;
+}
+
+.støt-nu-titles p {
+    padding-bottom: 16px;
+    font-style: italic;
+}
+.støt-nu-produkter {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+}
+.støt-nu-produkt {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+.produkt-1-billede {
+    height: 200px;
+    width: 200px;
+}
+
+.produkt-2-billede {
+    height: 200px;
+    width: 200px;
+}
+.støt-nu-produkt div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.buy-btn {
+    width: 150px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    border: 1px solid rgba(0,0,0,0.8);
+    border-radius: 50px;
+    transition: 0.3s ease;
+}
+
+.buy-btn:hover {
+    background-color: black;
+    color: white;
 }
 /* ======================
    TABLET (768px+)
@@ -210,6 +285,18 @@ html, body {
     }
     .støt-nu-container {
         width: 600px;
+    }
+    .støt-nu-titles h1 {
+        font-size: 48px;
+    }
+    .støt-nu-titles p {
+        font-size: 20px;
+    }
+    .støt-nu-produkt div h4 {
+        font-size: 20px;
+    }
+    .støt-nu-produkt div p {
+        font-size: 20px;
     }
 }
 
@@ -273,7 +360,8 @@ html, body {
     .støt-nu-container {
         display: flex;
         flex-direction: column;
-        width: 350px;
+        width: 960px;
+        gap: 20px;
     }
     .støt-nu-titles {
         display: flex;
