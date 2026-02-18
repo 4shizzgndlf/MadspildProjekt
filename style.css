@@ -66,7 +66,7 @@ html, body {
     top: 0;
     right: -100%;
     width: 70%;
-    height: 100dvh;
+    height: 100vh;
     background: white;
     display: flex;
     justify-content: center;
@@ -276,6 +276,7 @@ html, body {
 }
 .fakta-om-madspild-titles h1 {
     font-size: 28px;
+    padding-bottom: 5px;
 }
 .fakta-om-madspild-titles ul li {
     font-size: 16px;
@@ -355,6 +356,28 @@ html, body {
         font-size: 20px;
     }
 
+}
+
+/* ======================
+   SMARTPHONE ROTATE (1025px+)
+====================== */
+
+@media (min-width: 666px) and (max-height: 769px) {
+    .menu-container {
+        margin-top: 80px;
+        gap: 15px;
+    }
+    .menu-container a {
+        font-size: 36px;
+    }
+    .støt-nu {
+        margin: 0px;
+        height: 300vh;
+    }
+    .fakta-om-madspild {
+        margin: 0px;
+        height: 150vh;
+    }
 }
 
 /* ======================
@@ -457,12 +480,17 @@ html, body {
 
     .produkt-1-billede {
         height: 200px;
-        width: 200px;
+        width: 133px;
     }
 
     .produkt-2-billede {
         height: 200px;
-        width: 200px;
+        width: 133px;
+    }
+
+    .produkt-3-billede {
+        height: 200px;
+        width: 133px;
     }
 
     .støt-nu-produkt div {
