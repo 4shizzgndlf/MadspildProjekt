@@ -170,9 +170,10 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 150vh;
     width: 100vw;
-    margin: 100px 0px;
+    margin: 0px;
+    border-bottom: 2px solid black;
 }
 .støt-nu-container {
     display: flex;
@@ -205,15 +206,19 @@ html, body {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     gap: 20px;
 }
 .produkt-1-billede {
     height: 200px;
     width: 147px;
-    object-fit: cover;
 }
 
 .produkt-2-billede {
+    height: 200px;
+    width: 147px;
+}
+.produkt-3-billede {
     height: 200px;
     width: 147px;
 }
@@ -239,6 +244,42 @@ html, body {
 .buy-btn:hover {
     background-color: black;
     color: white;
+}
+
+.fakta-om-madspild {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    margin: 0px;
+    border-bottom: 2px solid black;
+}
+
+.fakta-om-madspild-container {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    gap: 20px;
+}
+
+.fakta-om-madspild-titles {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.fakta-om-madspild-titles ul {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.fakta-om-madspild-titles h1 {
+    font-size: 28px;
+}
+.fakta-om-madspild-titles ul li {
+    font-size: 16px;
+    list-style: decimal;
 }
 /* ======================
    TABLET (768px+)
@@ -287,6 +328,7 @@ html, body {
     }
     .støt-nu {
         margin: 0px;
+        height: 100vh;
     }
     .støt-nu-container {
         width: 600px;
@@ -303,6 +345,16 @@ html, body {
     .støt-nu-produkt div p {
         font-size: 20px;
     }
+    .fakta-om-madspild-container {
+        width: 600px;
+    }
+    .fakta-om-madspild-titles h1 {
+        font-size: 48px;
+    }
+    .fakta-om-madspild-titles ul li {
+        font-size: 20px;
+    }
+
 }
 
 /* ======================
@@ -359,7 +411,7 @@ html, body {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        height: 150vh;
         width: 100vw;
         margin: 0px;
     }
@@ -435,5 +487,38 @@ html, body {
     .buy-btn:hover {
         background-color: black;
         color: white;
+    }
+
+    .fakta-om-madspild {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100vw;
+        margin: 0px;
+        border-bottom: 2px solid black;
+    }
+    .fakta-om-madspild-container {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        width: 960px;
+    }
+    .fakta-om-madspild-titles {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .fakta-om-madspild-titles ul {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .fakta-om-madspild-titles h1 {
+        font-size: 48px;
+    }
+    .fakta-om-madspild-titles ul li {
+        font-size: 20px;
+        list-style: decimal;
     }
 }
