@@ -64,6 +64,7 @@ html, body {
 .menu {
     position: fixed;
     top: 63px;
+    height: 100dvh;
     right: -100%;
     width: 70%;
     background: white;
@@ -73,8 +74,6 @@ html, body {
     transition: right 0.3s ease;
     z-index: 90;
     border-left: 2px solid black;
-    height: calc(100dvh - 63px);
-    padding-bottom: env(safe-area-inset-bottom);
 }
 
 .menu.active {
