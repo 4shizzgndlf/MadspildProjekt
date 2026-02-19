@@ -456,7 +456,7 @@ html, body {
 
 @media (min-width: 666px) and (max-height: 769px) {
     .menu {
-        top: 100px;
+        top: 63px;
     }
     .menu-container {
         gap: 15px;
