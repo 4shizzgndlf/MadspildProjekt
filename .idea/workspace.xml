@@ -52,7 +52,7 @@
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/E8mbq/IdeaProjects/MadspildProjekt",
+    "last_opened_file_path": "C:/Users/E8mbq/IdeaProjects/MadspildProjekt/assets",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -63,6 +63,14 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\E8mbq\IdeaProjects\MadspildProjekt\assets" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\E8mbq\IdeaProjects\MadspildProjekt" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -79,7 +87,7 @@
       <option name="presentableId" value="Default" />
       <updated>1771235458887</updated>
       <workItem from="1771235459969" duration="1302000" />
-      <workItem from="1771323980457" duration="29463000" />
+      <workItem from="1771323980457" duration="31067000" />
     </task>
     <task id="LOCAL-00001" summary="First commit and push">
       <option name="closed" value="true" />

@@ -1,158 +1,1819 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Madspild</title>
-    <link rel="stylesheet" href="style.css">
-    <script defer src="script.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Stopmadspild.nu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+    <style>
+
+        /* ================================
+           GRUNDLÆGGENDE OPSÆTNING
+        ================================ */
+
+        :root {
+            --morkgron:  #0f1f15;
+            --gron:      #1a3a2a;
+            --lime:      #7db83a;
+            --creme:     #f5f0e8;
+            --orange:    #e87c2f;
+            --hvid:      #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--morkgron);
+            color: var(--creme);
+            overflow-x: hidden;
+        }
+
+
+        /* ================================
+           NAVIGATION
+        ================================ */
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: 60px;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.4s;
+        }
+
+        nav.scrollet {
+            background: rgba(8, 18, 10, 0.92);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(125, 184, 58, 0.15);
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.1rem;
+            color: var(--lime);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--creme);
+            text-decoration: none;
+            font-size: 0.82rem;
+            opacity: 0.8;
+            transition: color 0.2s, opacity 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--lime);
+            opacity: 1;
+        }
+
+        .nav-kontakt {
+            background: var(--lime);
+            color: var(--morkgron) !important;
+            padding: 0.38rem 1rem;
+            border-radius: 100px;
+            font-weight: 500;
+            opacity: 1 !important;
+        }
+
+        /* Hamburger til mobil */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--creme);
+            border-radius: 2px;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* Mobil menu overlay */
+        .mobil-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: rgba(8, 18, 10, 0.97);
+            backdrop-filter: blur(20px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2.5rem;
+        }
+
+        .mobil-menu.open {
+            display: flex;
+        }
+
+        .mobil-menu a {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--creme);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .mobil-menu a:hover {
+            color: var(--lime);
+        }
+
+
+        /* ================================
+           FORSIDE / HERO
+        ================================ */
+
+        #hjem {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-baggrund {
+            position: absolute;
+            inset: 0;
+            background-image: url('image5.jpeg');
+            background-size: cover;
+            background-position: center;
+            transform: scale(1.15);
+            will-change: transform;
+        }
+
+        /* Mørkt lag henover billedet */
+        .hero-baggrund::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                    to bottom,
+                    rgba(10, 20, 12, 0.45) 0%,
+                    rgba(10, 20, 12, 0.25) 40%,
+                    rgba(10, 20, 12, 0.92) 100%
+            );
+        }
+
+        .hero-indhold {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+            padding: 0 1.5rem;
+            width: 100%;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: rgba(125, 184, 58, 0.18);
+            border: 1px solid rgba(125, 184, 58, 0.5);
+            color: var(--lime);
+            font-size: 0.72rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.35rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 1.25rem;
+            opacity: 0;
+            animation: fadeOp 0.8s 0.3s forwards;
+        }
+
+        .hero-titel {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 7vw, 6.5rem);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            color: var(--hvid);
+            opacity: 0;
+            animation: fadeOp 0.9s 0.5s forwards;
+        }
+
+        .hero-titel span {
+            color: var(--lime);
+        }
+
+        .hero-tekst {
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            font-weight: 300;
+            color: rgba(245, 240, 232, 0.8);
+            max-width: 560px;
+            margin: 1.25rem auto 0;
+            line-height: 1.65;
+            opacity: 0;
+            animation: fadeOp 0.9s 0.7s forwards;
+        }
+
+        .hero-knapper {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+            padding: 0 1rem;
+            opacity: 0;
+            animation: fadeOp 0.9s 0.9s forwards;
+        }
+
+        .knap-primaer {
+            background: var(--lime);
+            color: var(--morkgron);
+            padding: 0.75rem 1.75rem;
+            border-radius: 100px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .knap-primaer:hover {
+            background: #8ecf44;
+            transform: translateY(-2px);
+        }
+
+        .knap-outline {
+            border: 1px solid rgba(245, 240, 232, 0.4);
+            color: var(--creme);
+            padding: 0.75rem 1.75rem;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: border-color 0.2s, color 0.2s, transform 0.2s;
+        }
+
+        .knap-outline:hover {
+            border-color: var(--lime);
+            color: var(--lime);
+            transform: translateY(-2px);
+        }
+
+        .scroll-pil {
+            position: absolute;
+            bottom: 2rem;
+            transform: translateX(-50%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0;
+            animation: fadeOp 1s 1.5s forwards;
+        }
+
+        .scroll-pil span {
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(245, 240, 232, 0.45);
+        }
+
+        .scroll-linje {
+            width: 1px;
+            height: 35px;
+            background: linear-gradient(to bottom, rgba(125, 184, 58, 0.8), transparent);
+            animation: pulsér 1.5s 2s infinite;
+        }
+
+
+        /* ================================
+           PARALLAX STRIBER
+        ================================ */
+
+        .parallax-stribe {
+            position: relative;
+            height: 60vw;
+            max-height: 65vh;
+            min-height: 280px;
+            overflow: hidden;
+        }
+
+        .parallax-stribe .baggrund {
+            position: absolute;
+            top: -25%;
+            left: 0;
+            right: 0;
+            bottom: -25%;
+            background-size: cover;
+            background-position: center;
+            will-change: transform;
+        }
+
+        .parallax-stribe .lag {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            padding: 3rem 4rem;
+        }
+
+        .parallax-stribe .lag.venstre {
+            background: linear-gradient(to right, rgba(8, 18, 10, 0.9) 40%, rgba(8, 18, 10, 0.2) 100%);
+        }
+
+        .parallax-stribe .lag.hoejre {
+            justify-content: flex-end;
+            background: linear-gradient(to left, rgba(8, 18, 10, 0.9) 40%, rgba(8, 18, 10, 0.2) 100%);
+        }
+
+        .parallax-tekst {
+            max-width: 480px;
+        }
+
+        .parallax-tekst h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 3.5vw, 3rem);
+            font-weight: 900;
+            line-height: 1.1;
+            color: var(--hvid);
+            margin-bottom: 0.9rem;
+        }
+
+        .parallax-tekst p {
+            color: rgba(245, 240, 232, 0.72);
+            font-size: clamp(0.85rem, 1.5vw, 1rem);
+            line-height: 1.65;
+        }
+
+
+        /* ================================
+           FÆLLES SEKTION-STYLING
+        ================================ */
+
+        section {
+            padding: 5rem 2rem;
+        }
+
+        @media (min-width: 768px) {
+            section {
+                padding: 7rem 4rem;
+            }
+        }
+
+        @media (min-width: 1100px) {
+            section {
+                padding: 7rem 6rem;
+            }
+        }
+
+        .sektion-label {
+            font-size: 0.68rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--lime);
+            margin-bottom: 0.75rem;
+        }
+
+        .sektion-titel {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4.5vw, 3.8rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            color: var(--hvid);
+            margin-bottom: 1.25rem;
+        }
+
+        .sektion-tekst {
+            color: rgba(245, 240, 232, 0.68);
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+            line-height: 1.72;
+            max-width: 600px;
+        }
+
+
+        /* ================================
+           BILLEDE-MOSAIK
+        ================================ */
+
+        .mosaik-sektion {
+            background: var(--morkgron);
+            padding: 4rem 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .mosaik-sektion {
+                padding: 6rem 4rem;
+            }
+        }
+
+        .mosaik {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 2.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .mosaik {
+                grid-template-columns: 2fr 1fr 1fr;
+                grid-template-rows: 280px 180px;
+            }
+            .mosaik-celle.stor {
+                grid-row: 1 / 3;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .mosaik {
+                grid-template-rows: 300px 200px;
+            }
+        }
+
+        .mosaik-celle {
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            min-height: 140px;
+        }
+
+        .mosaik-celle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .mosaik-celle:hover img {
+            transform: scale(1.07);
+        }
+
+        .mosaik-celle .billedtekst {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(8, 18, 10, 0.85), transparent);
+            padding: 0.7rem;
+            font-size: 0.72rem;
+            color: rgba(245, 240, 232, 0.7);
+        }
+
+
+        /* ================================
+           FAKTA OM MADSPILD
+        ================================ */
+
+        #fakta {
+            background: var(--morkgron);
+        }
+
+        #fakta .sektion-label {
+            color: var(--lime);
+        }
+
+        .fakta-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+
+        @media (min-width: 500px) {
+            .fakta-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 900px) {
+            .fakta-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .fakta-kort {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(125, 184, 58, 0.12);
+            border-radius: 14px;
+            padding: 1.5rem;
+            transition: border-color 0.3s, background 0.3s, transform 0.3s;
+        }
+
+        .fakta-kort:hover {
+            border-color: rgba(125, 184, 58, 0.4);
+            background: rgba(125, 184, 58, 0.06);
+            transform: translateY(-4px);
+        }
+
+        .fakta-tal {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--lime);
+            line-height: 1;
+            margin-bottom: 0.35rem;
+        }
+
+        .fakta-beskrivelse {
+            font-size: 0.9rem;
+            color: rgba(245, 240, 232, 0.72);
+            line-height: 1.65;
+        }
+
+        .fakta-kilde {
+            font-size: 0.68rem;
+            color: rgba(245, 240, 232, 0.3);
+            margin-top: 0.55rem;
+            font-style: italic;
+        }
+
+
+        /* ================================
+           BILLEDE-SKILLELINJE
+        ================================ */
+
+        .billede-skillelinje {
+            position: relative;
+            height: 50vw;
+            max-height: 55vh;
+            min-height: 220px;
+            overflow: hidden;
+        }
+
+        .billede-skillelinje .baggrund {
+            position: absolute;
+            top: -25%;
+            left: 0;
+            right: 0;
+            bottom: -25%;
+            background-size: cover;
+            background-position: center;
+            will-change: transform;
+        }
+
+        .billede-skillelinje::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                    to bottom,
+                    rgba(8, 18, 10, 0.7),
+                    rgba(8, 18, 10, 0.35),
+                    rgba(8, 18, 10, 0.7)
+            );
+        }
+
+
+        /* ================================
+           KØB PRODUKTER
+        ================================ */
+
+        #stot-nu {
+            background: var(--creme);
+            color: var(--morkgron);
+        }
+
+        #stot-nu .sektion-label {
+            color: var(--orange);
+        }
+
+        #stot-nu .sektion-titel {
+            color: var(--morkgron);
+        }
+
+        #stot-nu .sektion-tekst {
+            color: rgba(15, 31, 21, 0.62);
+        }
+
+        .produkt-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        @media (min-width: 600px) {
+            .produkt-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 900px) {
+            .produkt-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .produkt-kort {
+            background: var(--hvid);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .produkt-kort:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.13);
+        }
+
+        .produkt-kort img {
+            width: 100%;
+            height: 270px;
+            object-fit: cover;
+        }
+
+        .produkt-info {
+            padding: 1.35rem;
+        }
+
+        .produkt-maerke {
+            display: inline-block;
+            background: rgba(232, 124, 47, 0.1);
+            color: var(--orange);
+            font-size: 0.67rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.26rem 0.65rem;
+            border-radius: 100px;
+            margin-bottom: 0.55rem;
+        }
+
+        .produkt-navn {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--morkgron);
+            margin-bottom: 0.38rem;
+        }
+
+        .produkt-navn small {
+            font-size: 0.8rem;
+            font-weight: 400;
+        }
+
+        .produkt-beskrivelse {
+            font-size: 0.83rem;
+            color: rgba(15, 31, 21, 0.58);
+            line-height: 1.6;
+            margin-bottom: 1.1rem;
+        }
+
+        .produkt-bund {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .produkt-pris {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--morkgron);
+        }
+
+        .produkt-stotter {
+            font-size: 0.68rem;
+            color: rgba(15, 31, 21, 0.42);
+            margin-top: 0.12rem;
+        }
+
+        .knap-kob {
+            background: var(--morkgron);
+            color: var(--hvid);
+            padding: 0.58rem 1.2rem;
+            border-radius: 100px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: background 0.2s, transform 0.15s;
+        }
+
+        .knap-kob:hover {
+            background: var(--gron);
+            transform: scale(1.04);
+        }
+
+
+        /* ================================
+           UNDERSKRIFT / PETITION
+        ================================ */
+
+        #underskrift {
+            background: linear-gradient(135deg, #0d1f14, #132b1a);
+        }
+
+        .petition-boks {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(125, 184, 58, 0.2);
+            border-radius: 20px;
+            padding: 1.75rem;
+            margin-top: 2.5rem;
+        }
+
+        @media (min-width: 600px) {
+            .petition-boks {
+                padding: 2.5rem;
+            }
+        }
+
+        .taellere {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.25rem;
+        }
+
+        .stor-tal {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            font-weight: 900;
+            color: var(--lime);
+            line-height: 1;
+        }
+
+        .stor-tal-label {
+            font-size: 0.82rem;
+            color: rgba(245, 240, 232, 0.5);
+            margin-top: 0.2rem;
+        }
+
+        .fremskridt-wrap {
+            margin: 1.25rem 0;
+        }
+
+        .fremskridt-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: rgba(245, 240, 232, 0.55);
+            margin-bottom: 0.5rem;
+        }
+
+        .fremskridt-bar {
+            height: 7px;
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 100px;
+            overflow: hidden;
+        }
+
+        .fremskridt-fyld {
+            height: 100%;
+            background: linear-gradient(to right, var(--lime), #a3e060);
+            border-radius: 100px;
+            width: 0%;
+            transition: width 1.6s ease;
+        }
+
+        .borgerforslag-note {
+            background: rgba(125, 184, 58, 0.08);
+            border-left: 3px solid var(--lime);
+            padding: 0.85rem 1.2rem;
+            border-radius: 0 10px 10px 0;
+            font-size: 0.82rem;
+            color: rgba(245, 240, 232, 0.68);
+            line-height: 1.6;
+            margin-top: 1.25rem;
+        }
+
+        .borgerforslag-note strong {
+            color: var(--lime);
+        }
+
+        .petition-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+            margin-top: 1.35rem;
+        }
+
+        .petition-link {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.45rem 1rem;
+            border-radius: 100px;
+            font-size: 0.78rem;
+            color: var(--creme);
+            text-decoration: none;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .petition-link:hover {
+            border-color: var(--lime);
+            color: var(--lime);
+        }
+
+        .underskrift-formular {
+            display: flex;
+            gap: 0.65rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .underskrift-input {
+            flex: 1;
+            min-width: 160px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(125, 184, 58, 0.2);
+            color: var(--creme);
+            padding: 0.7rem 1rem;
+            border-radius: 100px;
+            font-size: 0.87rem;
+            font-family: 'DM Sans', sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .underskrift-input::placeholder {
+            color: rgba(245, 240, 232, 0.3);
+        }
+
+        .underskrift-input:focus {
+            border-color: var(--lime);
+        }
+
+        .knap-underskriv {
+            background: var(--lime);
+            color: var(--morkgron);
+            padding: 0.7rem 1.6rem;
+            border-radius: 100px;
+            font-size: 0.87rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: background 0.2s, transform 0.2s;
+            white-space: nowrap;
+        }
+
+        .knap-underskriv:hover {
+            background: #8ecf44;
+            transform: scale(1.03);
+        }
+
+        .success-besked {
+            display: none;
+            background: rgba(125, 184, 58, 0.13);
+            border: 1px solid rgba(125, 184, 58, 0.35);
+            color: var(--lime);
+            padding: 0.75rem 1.2rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            margin-top: 0.6rem;
+        }
+
+
+        /* ================================
+           OM OS
+        ================================ */
+
+        #om-os {
+            background: var(--creme);
+            color: var(--morkgron);
+        }
+
+        #om-os .sektion-label {
+            color: var(--gron);
+        }
+
+        #om-os .sektion-titel {
+            color: var(--morkgron);
+        }
+
+        #om-os .sektion-tekst {
+            color: rgba(15, 31, 21, 0.62);
+        }
+
+        .om-os-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        @media (min-width: 860px) {
+            .om-os-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+                align-items: center;
+                margin-top: 3.5rem;
+            }
+        }
+
+        .billede-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .billede-grid img {
+            border-radius: 12px;
+            width: 100%;
+            object-fit: cover;
+            height: 160px;
+        }
+
+        @media (min-width: 600px) {
+            .billede-grid img {
+                height: 190px;
+            }
+        }
+
+        .billede-grid img:first-child {
+            grid-column: 1 / -1;
+            height: 200px;
+        }
+
+        @media (min-width: 600px) {
+            .billede-grid img:first-child {
+                height: 240px;
+            }
+        }
+
+        .vaerdier {
+            margin-top: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .vaerdi {
+            display: flex;
+            gap: 0.85rem;
+            align-items: flex-start;
+        }
+
+        .vaerdi-ikon {
+            width: 34px;
+            height: 34px;
+            background: rgba(26, 58, 42, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+
+        .vaerdi-tekst h4 {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--morkgron);
+            margin-bottom: 0.15rem;
+        }
+
+        .vaerdi-tekst p {
+            font-size: 0.82rem;
+            color: rgba(15, 31, 21, 0.52);
+            line-height: 1.5;
+        }
+
+
+        /* ================================
+           KONTAKT
+        ================================ */
+
+        #kontakt {
+            background: var(--morkgron);
+        }
+
+        .kontakt-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        @media (min-width: 860px) {
+            .kontakt-grid {
+                grid-template-columns: 1fr 1.6fr;
+                gap: 5rem;
+                margin-top: 3.5rem;
+                align-items: start;
+            }
+        }
+
+        .kontakt-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            color: var(--hvid);
+            margin-bottom: 0.85rem;
+        }
+
+        .kontakt-info p {
+            color: rgba(245, 240, 232, 0.58);
+            font-size: 0.87rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .kontakt-detalje {
+            display: flex;
+            gap: 0.7rem;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            font-size: 0.86rem;
+            color: rgba(245, 240, 232, 0.55);
+        }
+
+        .kontakt-ikon {
+            width: 30px;
+            height: 30px;
+            background: rgba(125, 184, 58, 0.14);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.78rem;
+            flex-shrink: 0;
+        }
+
+        .kontakt-formular {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        .formular-raekke {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.85rem;
+        }
+
+        @media (min-width: 480px) {
+            .formular-raekke {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .kontakt-formular input,
+        .kontakt-formular textarea {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(125, 184, 58, 0.15);
+            color: var(--creme);
+            padding: 0.8rem 1.1rem;
+            border-radius: 11px;
+            font-size: 0.87rem;
+            font-family: 'DM Sans', sans-serif;
+            outline: none;
+            width: 100%;
+            transition: border-color 0.2s;
+        }
+
+        .kontakt-formular textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .kontakt-formular input::placeholder,
+        .kontakt-formular textarea::placeholder {
+            color: rgba(245, 240, 232, 0.28);
+        }
+
+        .kontakt-formular input:focus,
+        .kontakt-formular textarea:focus {
+            border-color: var(--lime);
+        }
+
+        .knap-send {
+            background: var(--lime);
+            color: var(--morkgron);
+            padding: 0.82rem 1.9rem;
+            border: none;
+            border-radius: 100px;
+            font-size: 0.87rem;
+            font-weight: 600;
+            cursor: pointer;
+            align-self: flex-start;
+            font-family: 'DM Sans', sans-serif;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .knap-send:hover {
+            background: #8ecf44;
+            transform: translateY(-2px);
+        }
+
+
+        /* ================================
+           FOOTER
+        ================================ */
+
+        footer {
+            background: #060f09;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            border-top: 1px solid rgba(125, 184, 58, 0.07);
+            text-align: center;
+        }
+
+        @media (min-width: 700px) {
+            footer {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 2.5rem 4rem;
+            }
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1rem;
+            color: var(--lime);
+        }
+
+        .footer-tekst {
+            font-size: 0.74rem;
+            color: rgba(245, 240, 232, 0.28);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.25rem;
+        }
+
+        .footer-links a {
+            font-size: 0.74rem;
+            color: rgba(245, 240, 232, 0.35);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--lime);
+        }
+
+
+        /* ================================
+           SCROLL REVEAL ANIMATION
+        ================================ */
+
+        .vis-ved-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.85s ease, transform 0.85s ease;
+        }
+
+        .vis-ved-scroll.synlig {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .forsinkelse-1 { transition-delay: 0.1s; }
+        .forsinkelse-2 { transition-delay: 0.22s; }
+        .forsinkelse-3 { transition-delay: 0.36s; }
+
+
+        /* ================================
+           KEYFRAME ANIMATIONER
+        ================================ */
+
+        @keyframes fadeOp {
+            from { opacity: 0; transform: translateY(26px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulsér {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.3; }
+        }
+
+
+        /* ================================
+           MOBIL - SLÅR PARALLAX FRA
+        ================================ */
+
+        @media (max-width: 600px) {
+            .parallax-stribe .baggrund,
+            .billede-skillelinje .baggrund {
+                top: 0;
+                bottom: 0;
+                transform: none !important;
+            }
+            .parallax-stribe .lag {
+                padding: 1.5rem 1.25rem;
+            }
+        }
+
+    </style>
 </head>
+
 <body>
-<nav class="navbar">
-    <div class="navbar-container">
-        <a href="#" class="logo-container">
-            <img id="logo" src="assets/logo.png" alt="logo">
-        </a>
-        <ul class="navlinks-container">
-            <li>
-                <a href="#">Home</a>
-            </li>
-            <li>
-                <a href="#støt-nu">Støt nu</a>
-            </li>
-            <li>
-                <a href="#fakta-om-madspild">Fakta om madspild</a>
-            </li>
-            <li>
-                <a href="#om-os">Om os</a>
-            </li>
-            <li>
-                <a id="kontakt-btn" href="#kontakt">Kontakt</a>
-            </li>
-        </ul>
-        <div class="hamburger-menu-container">
-            <img id="hamburger-menu" src="assets/hamburger_menu.png" alt="">
-            <img id="close" src="assets/close.png" alt="">
-        </div>
-    </div>
-</nav>
-<div class="menu">
-    <ul class="menu-container">
-        <li>
-            <a href="#">Home</a>
-        </li>
-        <li>
-            <a href="#støt-nu">Støt nu</a>
-        </li>
-        <li>
-            <a href="#fakta-om-madspild">Fakta om madspild</a>
-        </li>
-        <li>
-            <a href="#om-os">Om os</a>
-        </li>
-        <li>
-            <a href="#kontakt">Kontakt</a>
-        </li>
+
+<!-- ================================
+     NAVIGATION
+================================ -->
+
+<nav id="navigation">
+    <a href="#hjem" class="nav-logo">Stopmadspild.nu</a>
+
+    <ul class="nav-links" id="nav-links">
+        <li><a href="#hjem">Hjem</a></li>
+        <li><a href="#fakta">Fakta om madspild</a></li>
+        <li><a href="#stot-nu">Støt nu</a></li>
+        <li><a href="#underskrift">Støt med underskrift</a></li>
+        <li><a href="#om-os">Om os</a></li>
+        <li><a href="#kontakt" class="nav-kontakt">Kontakt</a></li>
     </ul>
+
+    <button class="hamburger" id="hamburger" aria-label="Åbn menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</nav>
+
+<!-- Mobil menu -->
+<div class="mobil-menu" id="mobil-menu">
+    <a href="#hjem"        onclick="lukMenu()">Hjem</a>
+    <a href="#fakta"       onclick="lukMenu()">Fakta om madspild</a>
+    <a href="#stot-nu"     onclick="lukMenu()">Støt nu</a>
+    <a href="#underskrift" onclick="lukMenu()">Støt med underskrift</a>
+    <a href="#om-os"       onclick="lukMenu()">Om os</a>
+    <a href="#kontakt"     onclick="lukMenu()" style="color: var(--lime)">Kontakt</a>
 </div>
-<div class="video">
-    <div class="video-container">
-        <video autoplay muted loop playsinline class="background-video">
-            <source src="assets/foodwaste.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay"></div>
-        <div class="content">
-            <div class="hero-tag">🌱 Det er tid til forandring</div>
-            <h1>1/3 af al mad <span id="title-style">ender i skraldespanden.</span> Det stopper vi nu.</h1>
-            <p>Hvert år smider danskerne 700.000 tons mad ud. Det er ikke bare spild af mad – det er spild af penge,
-                ressourcer og vores fælles fremtid.</p>
-            <a href="#learn-more" class="støt-btn">Støt sagen</a>
-            <a href="#learn-more" class="btn">Se fakta</a>
+
+
+<!-- ================================
+     FORSIDE
+================================ -->
+
+<section id="hjem" style="padding: 0;">
+    <div class="hero-baggrund" id="hero-baggrund"></div>
+
+    <div class="hero-indhold">
+        <div class="hero-tag">🌱 Det er tid til forandring</div>
+        <h1 class="hero-titel">
+            1/3 af al mad<br>
+            <span>ender i skraldespanden.</span><br>
+            Det stopper vi nu.
+        </h1>
+        <p class="hero-tekst">
+            Hvert år smider danskerne 700.000 tons mad ud. Det er ikke bare spild af mad –
+            det er spild af penge, ressourcer og vores fælles fremtid.
+        </p>
+        <div class="hero-knapper">
+            <a href="#stot-nu" class="knap-primaer">Støt sagen</a>
+            <a href="#fakta"   class="knap-outline">Se fakta</a>
+        </div>
+    </div>
+
+    <div class="scroll-pil">
+        <span>Scroll ned</span>
+        <div class="scroll-linje"></div>
+    </div>
+</section>
+
+
+<!-- ================================
+     PARALLAX STRIBE 1
+================================ -->
+
+<div class="parallax-stribe">
+    <div class="baggrund" id="parallax-1" style="background-image: url('image4.jpeg"></div>
+    <div class="lag venstre">
+        <div class="parallax-tekst vis-ved-scroll">
+            <h2>Madspild er en klimakrise</h2>
+            <p>Hvis madspild var et land, ville det være verdens tredjestørste udleder af CO₂ – kun overgået af Kina og USA.</p>
         </div>
     </div>
 </div>
-<div class="banner">
-    <div class="banner-container">
-        <img src="assets/banner1.jpg" alt="Madspild banner">
 
-        <div class="banner-overlay"></div>
 
-        <div class="banner-content">
-            <h1>Madspild er en klimakrise</h1>
-            <p>
-                Hvis madspild var et land, ville det være verdens tredjestørste
-                udleder af CO₂ – kun overgået af Kina og USA.
+<!-- ================================
+     BILLEDE MOSAIK
+================================ -->
+
+<div class="mosaik-sektion">
+    <div class="sektion-label vis-ved-scroll">Virkeligheden bag</div>
+    <h2 class="sektion-titel vis-ved-scroll forsinkelse-1">Billeder der fortæller sandheden</h2>
+
+    <div class="mosaik">
+        <div class="mosaik-celle stor vis-ved-scroll forsinkelse-1">
+            <img src="image5.jpeg" alt="Madspild bunke" />
+            <div class="billedtekst">Millioner af tons mad smides ud hvert år</div>
+        </div>
+        <div class="mosaik-celle vis-ved-scroll forsinkelse-2">
+            <img src="image6.jpeg" alt="Grøntsagskasser" />
+            <div class="billedtekst">Overskudsmad kan reddes</div>
+        </div>
+        <div class="mosaik-celle vis-ved-scroll forsinkelse-3">
+            <img src="image8.jpeg" alt="Supermarked" />
+            <div class="billedtekst">Supermarkeder kasserer tusindvis af tons</div>
+        </div>
+        <div class="mosaik-celle vis-ved-scroll forsinkelse-2">
+            <img src="image7.jpeg" alt="Kompost" />
+            <div class="billedtekst">Kompostering – en del af løsningen</div>
+        </div>
+        <div class="mosaik-celle vis-ved-scroll forsinkelse-3">
+            <img src="image9.jpeg" alt="Friske grøntsager" />
+            <div class="billedtekst">Frisk mad fortjener en chance</div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ================================
+     FAKTA OM MADSPILD
+================================ -->
+
+<section id="fakta">
+    <div class="sektion-label vis-ved-scroll">Vidste du at...</div>
+    <h2 class="sektion-titel vis-ved-scroll forsinkelse-1">10 fakta om madspild<br>der vil chokere dig</h2>
+
+    <div class="fakta-grid">
+        <div class="fakta-kort vis-ved-scroll forsinkelse-1">
+            <div class="fakta-tal">1/3</div>
+            <p class="fakta-beskrivelse">Al mad produceret globalt til menneskeligt forbrug ender som affald – 1,3 milliarder ton om året.</p>
+            <p class="fakta-kilde">Kilde: FAO, 2019</p>
+        </div>
+        <div class="fakta-kort vis-ved-scroll forsinkelse-2">
+            <div class="fakta-tal">700K</div>
+            <p class="fakta-beskrivelse">Danskerne smider hvert år over 700.000 tons mad ud – ca. 63 kg per dansker om året.</p>
+            <p class="fakta-kilde">Kilde: Fødevarestyrelsen</p>
+        </div>
+        <div class="fakta-kort vis-ved-scroll forsinkelse-3">
+            <div class="fakta-tal">8%</div>
+            <p class="fakta-beskrivelse">Af verdens samlede CO₂-udledning stammer fra madspild – mere end hele flyindustrien tilsammen.</p>
+            <p class="fakta-kilde">Kilde: WRAP, 2021</p>
+        </div>
+        <div class="fakta-kort vis-ved-scroll forsinkelse-1">
+            <div class="fakta-tal">3.500L</div>
+            <p class="fakta-beskrivelse">Vand bruges til at producere 1 kg oksekød. Når det smides ud, smider vi alt det vand med.</p>
+            <p class="fakta-kilde">Kilde: UNESCO</p>
+        </div>
+        <div class="fakta-kort vis-ved-scroll forsinkelse-2">
+            <div class="fakta-tal">820M</div>
+            <p class="fakta-beskrivelse">Mennesker lider af sult globalt – mens vi smider nok mad ud til at mætte dem tre gange om.</p>
+            <p class="fakta-kilde">Kilde: FN, 2022</p>
+        </div>
+        <div class="fakta-kort vis-ved-scroll forsinkelse-3">
+            <div class="fakta-tal">4,3 mia.</div>
+            <p class="fakta-beskrivelse">Kroner smider den danske detailhandel ud hvert år i form af madspild.</p>
+            <p class="fakta-kilde">Kilde: Dansk Erhverv</p>
+        </div>
+        <div class="fakta-kort vis-ved-scroll forsinkelse-1">
+            <div class="fakta-tal">40%</div>
+            <p class="fakta-beskrivelse">Af alt madspild sker i private husholdninger. Vi er alle en del af problemet – og løsningen.</p>
+            <p class="fakta-kilde">Kilde: DCFQ, 2020</p>
+        </div>
+        <div class="fakta-kort vis-ved-scroll forsinkelse-2">
+            <div class="fakta-tal">6.500L</div>
+            <p class="fakta-beskrivelse">Vand bruges til at producere 1 kg chokolade. Enorme ressourcer spildes når maden smides ud.</p>
+            <p class="fakta-kilde">Kilde: Waterfootprint.org</p>
+        </div>
+        <div class="fakta-kort vis-ved-scroll forsinkelse-3">
+            <div class="fakta-tal">45%</div>
+            <p class="fakta-beskrivelse">Af alle frugt og grøntsager produceret globalt kasseres fordi de ikke ser pæne nok ud til butikkerne.</p>
+            <p class="fakta-kilde">Kilde: FAO</p>
+        </div>
+        <div class="fakta-kort vis-ved-scroll forsinkelse-1">
+            <div class="fakta-tal">2030</div>
+            <p class="fakta-beskrivelse">Er FN's mål for at halvere globalt madspild som del af Verdensmål 12.3. Er Danmark på rette vej?</p>
+            <p class="fakta-kilde">Kilde: FN's Verdensmål</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ================================
+     BILLEDE SKILLELINJE
+================================ -->
+
+<div class="billede-skillelinje">
+    <div class="baggrund" id="parallax-3" style="background-image: url('image9.jpeg');"></div>
+</div>
+
+
+<!-- ================================
+     KØB PRODUKTER
+================================ -->
+
+<section id="stot-nu">
+    <div class="sektion-label vis-ved-scroll">Støt sagen</div>
+    <h2 class="sektion-titel vis-ved-scroll forsinkelse-1">Køb med mening</h2>
+    <p class="sektion-tekst vis-ved-scroll forsinkelse-2">
+        Hvert køb støtter direkte vores samarbejdspartnere <strong>Stopspildafmad.org</strong> og <strong>OneThird.dk</strong>
+        – to organisationer der kæmper i frontlinjen mod madspild i Danmark.
+    </p>
+
+    <div class="produkt-grid">
+        <div class="produkt-kort vis-ved-scroll forsinkelse-1">
+            <img src="image2.jpeg" alt="Ugly Food Totebag – Grøntsager" />
+            <div class="produkt-info">
+                <span class="produkt-maerke">Bestseller</span>
+                <h3 class="produkt-navn">Ugly Food Totebag<br><small>Grøntsager edition</small></h3>
+                <p class="produkt-beskrivelse">
+                    Vis verden at du elsker "grim" mad! Canvas-totebag med gulerod, tomat og kartoffel.
+                    <em>Perfekt smag – ikke perfekt udseende.</em>
+                </p>
+                <div class="produkt-bund">
+                    <div>
+                        <div class="produkt-pris">149 kr.</div>
+                        <div class="produkt-stotter">Støtter Stopspildafmad.org</div>
+                    </div>
+                    <button class="knap-kob" onclick="alert('Tak! Købsmulighederne åbner snart.')">Køb nu</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="produkt-kort vis-ved-scroll forsinkelse-2">
+            <img src="image1.jpeg" alt="Ugly Food Totebag – Frugt" />
+            <div class="produkt-info">
+                <span class="produkt-maerke">Populær</span>
+                <h3 class="produkt-navn">Ugly Food Totebag<br><small>Frugt edition</small></h3>
+                <p class="produkt-beskrivelse">
+                    Æble og banan i bedste Ugly Food-stil. En totebag der bærer både dine indkøb og et vigtigt budskab.
+                </p>
+                <div class="produkt-bund">
+                    <div>
+                        <div class="produkt-pris">149 kr.</div>
+                        <div class="produkt-stotter">Støtter OneThird.dk</div>
+                    </div>
+                    <button class="knap-kob" onclick="alert('Tak! Købsmulighederne åbner snart.')">Køb nu</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="produkt-kort vis-ved-scroll forsinkelse-3">
+            <img src="image3.jpeg" alt="Restemads Hacks Kogebog" />
+            <div class="produkt-info">
+                <span class="produkt-maerke">Ny</span>
+                <h3 class="produkt-navn">Restemads Hacks<br><small>Kogebog</small></h3>
+                <p class="produkt-beskrivelse">
+                    Lækker mad af rester! Fyldt med smarte hacks og opskrifter der hjælper dig reducere madspild og spare penge.
+                </p>
+                <div class="produkt-bund">
+                    <div>
+                        <div class="produkt-pris">199 kr.</div>
+                        <div class="produkt-stotter">Støtter begge organisationer</div>
+                    </div>
+                    <button class="knap-kob" onclick="alert('Tak! Købsmulighederne åbner snart.')">Køb nu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ================================
+     PARALLAX STRIBE 2
+================================ -->
+
+<div class="parallax-stribe">
+    <div class="baggrund" id="parallax-2" style="background-image: url('image6.jpeg');"></div>
+    <div class="lag hoejre">
+        <div class="parallax-tekst vis-ved-scroll" style="text-align: right;">
+            <h2>Reddede grøntsager er bedre grøntsager</h2>
+            <p>Tusindvis af tons perfekt frisk mad kasseres hvert år, fordi det ikke ser pænt nok ud. Det kan vi ændre.</p>
+        </div>
+    </div>
+</div>
+
+
+<!-- ================================
+     UNDERSKRIFT / PETITION
+================================ -->
+
+<section id="underskrift">
+    <div class="sektion-label vis-ved-scroll">Gør din stemme hørt</div>
+    <h2 class="sektion-titel vis-ved-scroll forsinkelse-1">Støt budskabet<br>med din underskrift</h2>
+    <p class="sektion-tekst vis-ved-scroll forsinkelse-2">
+        Politik forandres, når nok mennesker siger fra. Skriv under og kræv politisk handling mod madspild i Danmark.
+    </p>
+
+    <div class="petition-boks vis-ved-scroll forsinkelse-2">
+        <div class="taellere">
+            <div>
+                <div class="stor-tal" id="antal-underskrifter">12.847</div>
+                <div class="stor-tal-label">har allerede skrevet under</div>
+            </div>
+            <div>
+                <div class="stor-tal" style="color: rgba(245, 240, 232, 0.22);">50.000</div>
+                <div class="stor-tal-label">er målet for Borgerforslag</div>
+            </div>
+        </div>
+
+        <div class="fremskridt-wrap">
+            <div class="fremskridt-labels">
+                <span>Fremskridt mod 50.000</span>
+                <span>25,7%</span>
+            </div>
+            <div class="fremskridt-bar">
+                <div class="fremskridt-fyld" id="fremskridt-fyld"></div>
+            </div>
+        </div>
+
+        <div class="borgerforslag-note">
+            <strong>Hvad sker der ved 50.000 underskrifter?</strong><br>
+            Ifølge dansk lov kan et Borgerforslag tvinge en sag til behandling i Folketinget, hvis det samler
+            <strong>mindst 50.000 underskrifter inden for 180 dage</strong>. Underskriverne skal være
+            stemmeberettigede danske statsborgere over 18 år. Nås målet, er Folketingets Udvalg for
+            Forretningsordenen forpligtet til at tage stilling til forslaget – og det kan ende med en egentlig
+            afstemning i Folketingssalen. Det er borgernes direkte vej til lovgivningsmagten.
+        </div>
+
+        <div class="petition-links">
+            <a href="https://www.borgerforslag.dk" target="_blank" class="petition-link">🏛️ Borgerforslag.dk</a>
+            <a href="https://www.stopspildafmad.dk" target="_blank" class="petition-link">🌿 Stopspildafmad.org</a>
+            <a href="https://www.onethird.dk"       target="_blank" class="petition-link">🍃 OneThird.dk</a>
+        </div>
+
+        <form class="underskrift-formular" onsubmit="skriv_under(event)">
+            <input class="underskrift-input" type="text"  placeholder="Dit fulde navn" required autocomplete="name" />
+            <input class="underskrift-input" type="email" placeholder="Din e-mail"     required autocomplete="email" />
+            <button type="submit" class="knap-underskriv">Skriv under ✍️</button>
+        </form>
+        <div class="success-besked" id="underskrift-success">
+            🎉 Tak! Din underskrift er registreret. Del med venner og hjælp os nå 50.000!
+        </div>
+    </div>
+</section>
+
+
+<!-- ================================
+     OM OS
+================================ -->
+
+<section id="om-os">
+    <div class="sektion-label vis-ved-scroll">Hvem er vi?</div>
+    <h2 class="sektion-titel vis-ved-scroll forsinkelse-1">Vi kæmper for en<br>fremtid uden madspild</h2>
+
+    <div class="om-os-grid">
+        <div>
+            <p class="sektion-tekst vis-ved-scroll">
+                Stopmadspild.nu er et danskbaseret initiativ skabt af borgere, der er trætte af at se mad gå til spilde.
+                Vi tror på, at alle – fra politikere til forbrugere – har et ansvar.
             </p>
-        </div>
-    </div>
-</div>
+            <br>
+            <p class="sektion-tekst vis-ved-scroll forsinkelse-1">
+                Vi samarbejder tæt med <strong>Stopspildafmad.org</strong> og <strong>OneThird.dk</strong>.
+                Salget af vores produkter går direkte til at støtte deres vigtige arbejde.
+            </p>
 
-<div id="støt-nu" class="støt-nu">
-    <div class="støt-nu-container">
-        <div class="støt-nu-titles">
-            <h1>Støt nu</h1>
-            <p>Her kan du købe produkter og støtte kampen mod madspild. Alt overskud går til organisationer som <a
-                    href="https://stopspildafmad.org/?fbclid=IwY2xjawQBJ2xleHRuA2FlbQIxMABzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEewM1fUnnd_jS9iRon6O1uLbLkmJ0PGQaoFHoLl0uXCgw8YIlKB-1PM0esUhg_aem_uVABCJ_UiXSrVG9sGo-pIg">Stopspildafmad.org</a>
-                og
-                <a href="https://onethird.dk/danmarkmodmadspild/?fbclid=IwY2xjawQBJ7FleHRuA2FlbQIxMABzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeHX0wBRHF48CSUcXyWlPcRk2V0LKD0LkhmNKFguMLen1wCXGCf__ee9V84vU_aem_Xiz2htR-WPxs46TZEx35YQ">Onethird.dk</a>
-                der hver dag
-                kæmper for at få nedsat hele verdens madspild</p>
+            <div class="vaerdier">
+                <div class="vaerdi vis-ved-scroll forsinkelse-1">
+                    <div class="vaerdi-ikon">🌍</div>
+                    <div class="vaerdi-tekst">
+                        <h4>Klimabevidsthed</h4>
+                        <p>Madspild er en af de mest undervurderede klimatrusler. Vi sætter det på dagsordenen.</p>
+                    </div>
+                </div>
+                <div class="vaerdi vis-ved-scroll forsinkelse-2">
+                    <div class="vaerdi-ikon">🤝</div>
+                    <div class="vaerdi-tekst">
+                        <h4>Fællesskab</h4>
+                        <p>Forandring sker, når nok mennesker handler sammen. Du er en del af det fællesskab.</p>
+                    </div>
+                </div>
+                <div class="vaerdi vis-ved-scroll forsinkelse-3">
+                    <div class="vaerdi-ikon">💡</div>
+                    <div class="vaerdi-tekst">
+                        <h4>Oplysning</h4>
+                        <p>Vi tror på, at viden er det første skridt. Dél fakta, dél budskabet.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="støt-nu-produkter">
-            <div class="støt-nu-produkt">
-                <img class="produkt-1-billede" src="assets/produkt1.jpg" alt="product1">
-                <div>
-                    <h4>Bærepose GTK med logo print</h4>
-                    <p>Her er en bærepose med logo print på. Farven er beige og materialet er bæredygtigt. Perfekt til
-                        genbrugelighed i hverdagen. </p>
-                    <a class="buy-btn" href="#">Køb her</a>
-                </div>
-            </div>
-            <div class="støt-nu-produkt">
-                <img class="produkt-2-billede" src="assets/produkt2.jpg" alt="product2">
-                <div>
-                    <h4>Bærepose ÆB med logo print</h4>
-                    <p>Her er en bærepose med logo print på. Farven er beige og materialet er bæredygtigt. Perfekt til
-                        genbrugelighed i hverdagen. </p>
-                    <a class="buy-btn" href="#">Køb her</a>
-                </div>
-            </div>
-            <div class="støt-nu-produkt">
-                <img class="produkt-3-billede" src="assets/produkt3.jpg" alt="product3">
-                <div>
-                    <h4>Kogebog med restemad hacks</h4>
-                    <p>Her er en kogebog med med restemad hacks til hverdagen. Maden er høj kvalitet og der er over 100+
-                        opskrifter i bogen. Perfekt til
-                        når du har rester i køleskabet. </p>
-                    <a class="buy-btn" href="#">Køb her</a>
-                </div>
-            </div>
+
+        <div class="billede-grid vis-ved-scroll forsinkelse-2">
+            <img src="image6.jpeg" alt="Overskudsmad" />
+            <img src="image7.jpeg" alt="Kompostering" />
+            <img src="image8.jpeg" alt="Supermarked" />
         </div>
     </div>
-</div>
-<div id="fakta-om-madspild" class="fakta-om-madspild">
-    <div class="fakta-om-madspild-container">
-        <div class="fakta-om-madspild-titles">
-            <h1>Fakta om madspild</h1>
-            <ul>
-                <li>Det samlede madspild i Danmark er over 800.000 tons årligt. Fødevareindustrien (forarbejdning) står
-                    for
-                    ca. 47-52 % af spildet, mens husholdningerne står for ca. 27-30 %.
-                </li>
-                <li>Den gennemsnitlige dansker smider ca. 44 kg spiselig mad ud om året. En gennemsnitlig
-                    parcelhusholdning
-                    smider 105 kg mad ud årligt.
-                </li>
-                <li>Madspild koster danske husholdninger 13,5 milliarder kr. om året. Globalt står madspild for 8-10 %
-                    af
-                    verdens -udledning.
-                </li>
-                <li> Ifølge FN går over en tredjedel af al produceret mad til spilde.</li>
-                <li>Supermarkeder og detailhandel står for ca. 12 % af det danske madspild.</li>
-            </ul>
+</section>
+
+
+<!-- ================================
+     KONTAKT
+================================ -->
+
+<section id="kontakt">
+    <div class="sektion-label vis-ved-scroll">Kom i kontakt</div>
+    <h2 class="sektion-titel vis-ved-scroll forsinkelse-1">Skriv til os</h2>
+    <p class="sektion-tekst vis-ved-scroll forsinkelse-2">
+        Har du spørgsmål, forslag eller vil du samarbejde? Vi hører gerne fra dig – vi svarer inden for 48 timer.
+    </p>
+
+    <div class="kontakt-grid">
+        <div class="vis-ved-scroll forsinkelse-1">
+            <div class="kontakt-info">
+                <h3>Vi er her for dig</h3>
+                <p>Uanset om du vil vide mere, bidrage aktivt eller blot dele dine tanker – skriv til os.</p>
+                <div class="kontakt-detalje"><div class="kontakt-ikon">✉️</div> hej@stopmadspild.nu</div>
+                <div class="kontakt-detalje"><div class="kontakt-ikon">📍</div> København, Danmark</div>
+                <div class="kontakt-detalje"><div class="kontakt-ikon">🌐</div> stopmadspild.nu</div>
+            </div>
+        </div>
+
+        <div class="vis-ved-scroll forsinkelse-2">
+            <form class="kontakt-formular" onsubmit="send_besked(event)">
+                <div class="formular-raekke">
+                    <input type="text"  placeholder="Dit navn"   required autocomplete="name" />
+                    <input type="email" placeholder="Din e-mail" required autocomplete="email" />
+                </div>
+                <input type="text" placeholder="Emne" />
+                <textarea placeholder="Din besked..."></textarea>
+                <button type="submit" class="knap-send">Send besked →</button>
+                <div class="success-besked" id="kontakt-success">
+                    ✅ Tak! Vi vender tilbage hurtigst muligt.
+                </div>
+            </form>
         </div>
     </div>
-</div>
+</section>
+
+
+<!-- ================================
+     FOOTER
+================================ -->
+
+<footer>
+    <div class="footer-logo">Stopmadspild.nu</div>
+    <div class="footer-tekst">© 2025 Stopmadspild.nu · Støtter Stopspildafmad.org & OneThird.dk</div>
+    <div class="footer-links">
+        <a href="#hjem">Hjem</a>
+        <a href="#stot-nu">Støt nu</a>
+        <a href="#kontakt">Kontakt</a>
+    </div>
+</footer>
+
+
+<!-- ================================
+     JAVASCRIPT
+================================ -->
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+
+    // Nav bliver mørk når man scroller
+    const nav = document.getElementById('navigation');
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 60) {
+            nav.classList.add('scrollet');
+        } else {
+            nav.classList.remove('scrollet');
+        }
+    });
+
+
+    // Hamburger menu til mobil
+    const hamburger  = document.getElementById('hamburger');
+    const mobilMenu  = document.getElementById('mobil-menu');
+    const navLinks   = document.getElementById('nav-links');
+
+    hamburger.addEventListener('click', function() {
+        hamburger.classList.toggle('open');
+        mobilMenu.classList.toggle('open');
+        document.body.style.overflow = mobilMenu.classList.contains('open') ? 'hidden' : '';
+    });
+
+    function lukMenu() {
+        hamburger.classList.remove('open');
+        mobilMenu.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    // Vis eller skjul desktop-nav afhængigt af skærmstørrelse
+    function tjelkNavStoerrelse() {
+        if (window.innerWidth >= 900) {
+            navLinks.style.display = 'flex';
+            hamburger.style.display = 'none';
+        } else {
+            navLinks.style.display = 'none';
+            hamburger.style.display = 'flex';
+        }
+    }
+    tjelkNavStoerrelse();
+    window.addEventListener('resize', tjelkNavStoerrelse);
+
+
+    // Hero parallax – billedet bevæger sig langsommere end siden
+    const heroBaggrund = document.getElementById('hero-baggrund');
+    heroBaggrund.style.backgroundImage = "url('image5.jpeg')";
+
+    window.addEventListener('scroll', function() {
+        if (window.innerWidth > 600) {
+            var flytning = window.scrollY * 0.28;
+            heroBaggrund.style.transform = 'scale(1.15) translateY(' + flytning + 'px)';
+        }
+    }, { passive: true });
+
+
+    // Parallax på de tre striber
+    function opsaetParallax(elementId, styrke) {
+        var element = document.getElementById(elementId);
+        if (!element) return;
+
+        var foraelder = element.parentElement;
+
+        window.addEventListener('scroll', function() {
+            if (window.innerWidth <= 600) return;
+
+            var position = foraelder.getBoundingClientRect();
+            var erSynlig = position.bottom > 0 && position.top < window.innerHeight;
+            if (!erSynlig) return;
+
+            var ratio = (window.innerHeight - position.top) / (window.innerHeight + position.height);
+            var flytning = (ratio - 0.5) * styrke * 160;
+            element.style.transform = 'translateY(' + flytning + 'px)';
+        }, { passive: true });
+    }
+
+    opsaetParallax('parallax-1', 0.3);
+    opsaetParallax('parallax-2', 0.3);
+    opsaetParallax('parallax-3', 0.25);
+
+
+    // Scroll reveal – elementer glider ind når de bliver synlige
+    var scrollObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('synlig');
+                scrollObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.vis-ved-scroll').forEach(function(el) {
+        scrollObserver.observe(el);
+    });
+
+
+    // Fremskridtsbaren animerer ind når den bliver synlig
+    var fremskridtsFyld = document.getElementById('fremskridt-fyld');
+
+    var fremskridtsObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                setTimeout(function() {
+                    fremskridtsFyld.style.width = '25.7%';
+                }, 200);
+                fremskridtsObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    if (fremskridtsFyld) {
+        fremskridtsObserver.observe(fremskridtsFyld);
+    }
+
+
+    // Underskrift – tæller går op når man skriver under
+    var antalUnderskrifter = 12847;
+
+    function skriv_under(event) {
+        event.preventDefault();
+        antalUnderskrifter++;
+        document.getElementById('antal-underskrifter').textContent =
+            antalUnderskrifter.toLocaleString('da-DK');
+        document.getElementById('underskrift-success').style.display = 'block';
+        event.target.reset();
+    }
+
+
+    // Kontaktformular
+    function send_besked(event) {
+        event.preventDefault();
+        document.getElementById('kontakt-success').style.display = 'block';
+        event.target.reset();
+    }
+
+</script>
+
 </body>
 </html>
